@@ -1,0 +1,1 @@
+# java-craft-inventory-system-6-projects
