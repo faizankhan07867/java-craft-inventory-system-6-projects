@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Product {
+    int id;
+    String name;
+    int quantity;
+    double price;
+
+    public Product(int id, String name, int quantity, double price) {
+        this.id = id; this.name = name; this.quantity = quantity; this.price = price;
+    }
+
+    void display() {
+        System.out.printf("ID: %d | %-20s | Qty: %3d | Price: ₹%.2f%n", id, name, quantity, price);
+    }
+}
+
+class Inventory {
+    ArrayList<Product> products = new ArrayList<>();
+
+    void addProduct(Product p) {
+        products.add(p);
+        System.out.println("Product added successfully!");
+    }
+
+    void updateQuantity(int id, int qty) {
+        for (Product p : products) {
+            if (p.id == id) {
+                p.quantity = qty;
+                System.out.println("Quantity updated!");
+                return;
+            }
+        }
+        System.out.println("Product not found!");
+    }
+
+    void displayAll() {
+        System.out.println("\n=== INVENTORY ===");
+        for (Product p : products) p.display();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Inventory inv = new Inventory();
+
+        inv.addProduct(new Product(101, "Terracotta Vase", 15, 899));
+        inv.addProduct(new Product(102, "Macrame Hanging", 8, 1299));
+
+        while (true) {
+            System.out.println("\n1. Add  2. Update Qty  3. View  4. Exit");
+            int ch = sc.nextInt();
+            if (ch == 1) {
+                System.out.print("ID, Name, Qty, Price: ");
+                inv.addProduct(new Product(sc.nextInt(), sc.next(), sc.nextInt(), sc.nextDouble()));
+            } else if (ch == 2) {
+                System.out.print("ID & New Qty: ");
+                inv.updateQuantity(sc.nextInt(), sc.nextInt());
+            } else if (ch == 3) inv.displayAll();
+            else break;
+        }
+    }
+}
