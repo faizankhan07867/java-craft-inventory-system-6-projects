@@ -1,0 +1,22 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String data = "101,Terracotta Vase,Pottery,899,15\n102,Macrame,Macrame,1299,8\n103,Soy Candle,Candles,449,25";
+        new FileWriter("inventory.txt").write(data);
+
+        BufferedReader br = new BufferedReader(new FileReader("inventory.txt"));
+        String line; int totalValue = 0;
+        System.out.println("INVENTORY REPORT - " + new Date());
+        System.out.println("ID  Name                 Category     Price   Stock   Value");
+        while ((line = br.readLine()) != null) {
+            String[] p = line.split(",");
+            int value = Integer.parseInt(p[3]) * Integer.parseInt(p[4]);
+            totalValue += value;
+            System.out.printf("%s  %-20s %-10s ₹%6s %6s ₹%d%n", p[0], p[1], p[2], p[3], p[4], value);
+        }
+        System.out.println("Total Inventory Value: ₹" + totalValue);
+        br.close();
+    }
+}
