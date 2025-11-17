@@ -1,0 +1,34 @@
+import java.util.*;
+
+class User {
+    String username, password, role;
+    User(String u, String p, String r) { username = u; password = p; role = r; }
+}
+
+public class Main {
+    static ArrayList<User> users = new ArrayList<>();
+    static String loggedInUser = "";
+
+    static void login() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Username: "); String u = sc.next();
+        System.out.print("Password: "); String p = sc.next();
+        for (User user : users) {
+            if (user.username.equals(u) && user.password.equals(p)) {
+                loggedInUser = user.role;
+                System.out.println("Login Success! Role: " + user.role);
+                return;
+            }
+        }
+        System.out.println("Invalid credentials!");
+    }
+
+    public static void main(String[] args) {
+        users.add(new User("admin", "admin123", "Admin"));
+        users.add(new User("seller", "sell123", "Seller"));
+
+        login();
+        if (loggedInUser.equals("Admin")) System.out.println("Welcome Admin – Full Access");
+        else if (loggedInUser.equals("Seller")) System.out.println("Welcome Seller – View Only");
+    }
+}
